@@ -59,7 +59,7 @@ class AindoChat {
     showWarning() {
         const warningMsg = this.createMessage(
             'ai',
-            '⚠️ <strong>API Key Required:</strong> Please click the settings button (⚙️) in the bottom right corner to configure your OpenAI API key before chatting.'
+            '⚠️ API Key Required: Please click the settings button (⚙️) in the bottom right corner to configure your OpenAI API key before chatting.'
         );
         this.chatMessages.appendChild(warningMsg);
         this.scrollToBottom();
@@ -147,7 +147,7 @@ class AindoChat {
             loadingMsg.remove();
             const errorMsg = this.createMessage(
                 'ai',
-                `❌ <strong>Error:</strong> ${error.message}`
+                `❌ Error: ${error.message}`
             );
             this.chatMessages.appendChild(errorMsg);
         } finally {
@@ -178,8 +178,14 @@ class AindoChat {
         });
         
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error?.message || 'Failed to get response from AI');
+            let errorMessage = 'Failed to get response from AI';
+            try {
+                const error = await response.json();
+                errorMessage = error.error?.message || errorMessage;
+            } catch (e) {
+                // If JSON parsing fails, use the default error message
+            }
+            throw new Error(errorMessage);
         }
         
         const data = await response.json();
@@ -193,12 +199,8 @@ class AindoChat {
         const contentDiv = document.createElement('div');
         contentDiv.className = 'message-content';
         
-        if (type === 'user') {
-            contentDiv.textContent = content;
-        } else {
-            // AI messages can contain HTML (for formatting)
-            contentDiv.innerHTML = content;
-        }
+        // Use textContent to prevent XSS vulnerabilities
+        contentDiv.textContent = content;
         
         messageDiv.appendChild(contentDiv);
         return messageDiv;
