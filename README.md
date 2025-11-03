@@ -44,6 +44,16 @@ AI Chat to answer your tasks using OpenAI's GPT models.
 - No data is stored on any server
 - You can clear your API key anytime from settings
 
+### Security Best Practices
+
+⚠️ **Important:** When using this application, follow these security guidelines:
+
+1. **Use API Key Restrictions**: In your OpenAI account, set up usage limits and spending caps for your API key
+2. **Don't Share API Keys**: Never share your API key or commit it to version control
+3. **Use on Trusted Devices**: Only use this application on devices you trust, as API keys are stored in browser storage
+4. **Monitor Usage**: Regularly check your OpenAI usage dashboard for unexpected activity
+5. **Rotate Keys**: Consider rotating your API keys periodically
+
 ## Requirements
 
 - A modern web browser (Chrome, Firefox, Safari, Edge)

@@ -78,6 +78,9 @@ class AindoChat {
         this.model = this.modelSelect.value;
         
         if (this.apiKey) {
+            // Note: Storing API keys in localStorage is necessary for client-side apps
+            // Users should use restricted API keys with spending limits
+            // See: https://platform.openai.com/docs/api-reference/authentication
             localStorage.setItem('openai_api_key', this.apiKey);
             localStorage.setItem('openai_model', this.model);
             this.closeSettings();
